@@ -1,0 +1,35 @@
+:root {
+  /* Extracted Design Tokens from awsbali.com/dewadhar_gekcantik */
+  --color-bg-white: #ffffff;
+  --color-bg-cream: #fff8ed;
+  --color-bg-peach: #f3cba8;
+  --color-bg-black: #000000;
+  --color-bg-guestbook: #f5f3ee;
+  --color-border-guestbook: #e0dcd1;
+
+  --color-gold-heading: #a59071;
+  --color-gold-cover-btn: #a48c4d;
+  --color-gold-event-heading: #efbc72;
+  --color-gold-sloka: rgba(129, 115, 77, 0.81);
+  --color-gold-sloka-ref: #817556;
+  --color-gold-audio: #987527;
+  --color-gold-guestbook: #7b6945;
+  --color-gold-guestbook-hover: #8b774e;
+  --color-gold-badge: #c18c14;
+
+  --color-text-dark: #474747;
+  --color-text-cover: rgba(0, 0, 0, 0.68);
+  --color-text-guestbook: #625b4f;
+  --color-text-muted: #989692;
+  --color-text-footer: #c6c6c6;
+
+  --radius-card: 25px;
+  --radius-mobile-photo: 20px;
+  --radius-portrait: 175px;
+  --radius-gallery: 10px;
+  --radius-btn: 10px;
+
+  --shadow-card: 2px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  --shadow-portrait: 8px 5px 10px 0px rgba(0, 0, 0, 0.459);
+  --shadow-hero-title: 0px 11px 9px rgba(0, 0, 0, 0.55);
+}

@@ -1,0 +1,16 @@
+node_modules/
+.next/
+tsconfig.tsbuildinfo
+# local-only material
+foto/
+serve/
+docs/
+.extract-design-system/
+/data/
+/*.mp3
+# unused assets from the reference site
+public/images/logo-undangan-bali.png
+public/images/couple-monogram.png
+public/images/flower-ornament.png
+public/images/leaves-gold-divider.png
+public/images/bg-pattern.png
