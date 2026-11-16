@@ -20,8 +20,8 @@ const TILES = [
   { area: 'col-start-5 col-end-7 row-start-4 row-end-9', shape: 'rounded-[12px]', pos: 'center 45%' },
   { area: 'col-start-1 col-end-3 row-start-6 row-end-13', shape: 'rounded-[12px] rounded-bl-[60px]', pos: 'center 55%' },
   { area: 'col-start-3 col-end-5 row-start-6 row-end-9', shape: 'rounded-full', pos: 'center 50%' },
-  { area: 'col-start-3 col-end-7 row-start-9 row-end-13', shape: 'rounded-[12px] rounded-br-[70px]', pos: '32% 30%' },
-  { area: 'col-start-1 col-end-7 row-start-13 row-end-17', shape: 'rounded-[12px] rounded-tr-[80px] rounded-bl-[80px]', pos: 'center 48%' },
+  { area: 'col-start-3 col-end-7 row-start-9 row-end-13', shape: 'rounded-[12px] rounded-br-[70px]', pos: 'center 28%' },
+  { area: 'col-start-1 col-end-7 row-start-13 row-end-17', shape: 'rounded-[12px] rounded-tr-[80px] rounded-bl-[80px]', pos: '32% 32%' },
 ];
 
 export function PhotoCollage({ photos, startIndex, onSelectPhoto, title, sectionId }: PhotoCollageProps) {

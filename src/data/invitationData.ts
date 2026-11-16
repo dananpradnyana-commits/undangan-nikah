@@ -86,7 +86,7 @@ export const invitationData: InvitationData = {
     title: 'Matur Suksma',
     subtitle: 'Sampai jumpa di hari bahagia kami',
     photo: '/images/gallery/g1-4.jpg',
-    bannerBackground: '/images/footer-banner-bg.jpg',
+    bannerBackground: '/images/gallery/g1-1.jpg',
     monogramLogo: '/images/monogram-et.svg',
   },
   footer: {

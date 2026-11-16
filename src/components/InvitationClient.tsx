@@ -40,7 +40,7 @@ const SLIDESHOW_IDS = [
 ];
 
 // Abstract collage near the end: 7 distinct couple photos with varied compositions and zero adjacent similar poses
-const COLLAGE_IDS = ['g1-3', 'g2-1', 'g3-1', 'g4-3', 'g2-2', 'g1-4', 'g1-1'];
+const COLLAGE_IDS = ['g1-3', 'g2-1', 'g3-1', 'g4-3', 'g2-2', 'g3-4', 'g1-4'];
 
 export function InvitationClient({
   data,
