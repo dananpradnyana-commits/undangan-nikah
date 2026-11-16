@@ -166,17 +166,7 @@ export function MasonryGallery({
               className="pointer-events-none absolute inset-[10px] z-20 rounded-[14px] border border-[#EFBC72]/35"
             />
 
-            {/* counter + expand */}
-            {count > 1 && (
-              <div className="pointer-events-none absolute left-5 bottom-6 z-30 flex items-baseline gap-1.5 text-white">
-                <span className="font-lora text-[26px] leading-none text-[#F3CD8F] tabular-nums">
-                  {pad(current + 1)}
-                </span>
-                <span className="font-montserrat text-[11px] tracking-[0.18em] text-white/70 tabular-nums">
-                  / {pad(count)}
-                </span>
-              </div>
-            )}
+            {/* expand icon */}
             <span
               aria-hidden="true"
               className="pointer-events-none absolute right-5 bottom-6 z-30 w-8 h-8 rounded-full bg-black/35 border border-white/25 text-white/90 flex items-center justify-center"

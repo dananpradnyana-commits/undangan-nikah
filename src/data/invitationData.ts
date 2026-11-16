@@ -63,7 +63,7 @@ export const invitationData: InvitationData = {
     part3: [
       { id: 'g3-1', src: '/images/gallery/g3-1.jpg', width: 1000, height: 1500, alt: 'Galeri Pawiwahan 13' },
       { id: 'g3-2', src: '/images/gallery/g3-2.jpg', width: 1000, height: 1500, alt: 'Galeri Pawiwahan 14' },
-      { id: 'g3-3', src: '/images/gallery/g3-3.jpg', width: 1500, height: 1000, alt: 'Galeri Pawiwahan 15' },
+      { id: 'g3-3', src: '/images/gallery/g3-3.jpg', width: 1000, height: 1500, alt: 'Galeri Pawiwahan 15' },
       { id: 'g3-4', src: '/images/gallery/g3-4.jpg', width: 1500, height: 1000, alt: 'Galeri Pawiwahan 16' },
     ],
     video2Id: 'znM8dFu9zIg',

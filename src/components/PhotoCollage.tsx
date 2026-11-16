@@ -15,13 +15,13 @@ interface PhotoCollageProps {
 // Hand-placed mosaic on a 6-column grid: every tile has a different size
 // and shape (arch, leaf corners) so the collage feels loose, not like a table.
 const TILES = [
-  { area: 'col-start-1 col-end-5 row-start-1 row-end-6', shape: 'rounded-[12px] rounded-tl-[70px]', pos: 'center 30%' },
-  { area: 'col-start-5 col-end-7 row-start-1 row-end-4', shape: 'rounded-t-full rounded-b-[12px]', pos: 'center 25%' },
-  { area: 'col-start-5 col-end-7 row-start-4 row-end-9', shape: 'rounded-[12px]', pos: 'center' },
-  { area: 'col-start-1 col-end-3 row-start-6 row-end-13', shape: 'rounded-[12px] rounded-bl-[60px]', pos: 'center 40%' },
-  { area: 'col-start-3 col-end-5 row-start-6 row-end-9', shape: 'rounded-full', pos: 'center 30%' },
-  { area: 'col-start-3 col-end-7 row-start-9 row-end-13', shape: 'rounded-[12px] rounded-br-[70px]', pos: 'center 35%' },
-  { area: 'col-start-1 col-end-7 row-start-13 row-end-17', shape: 'rounded-[12px] rounded-tr-[80px] rounded-bl-[80px]', pos: 'center 45%' },
+  { area: 'col-start-1 col-end-5 row-start-1 row-end-6', shape: 'rounded-[12px] rounded-tl-[70px]', pos: 'center 42%' },
+  { area: 'col-start-5 col-end-7 row-start-1 row-end-4', shape: 'rounded-t-full rounded-b-[12px]', pos: 'center 52%' },
+  { area: 'col-start-5 col-end-7 row-start-4 row-end-9', shape: 'rounded-[12px]', pos: 'center 45%' },
+  { area: 'col-start-1 col-end-3 row-start-6 row-end-13', shape: 'rounded-[12px] rounded-bl-[60px]', pos: 'center 55%' },
+  { area: 'col-start-3 col-end-5 row-start-6 row-end-9', shape: 'rounded-full', pos: 'center 50%' },
+  { area: 'col-start-3 col-end-7 row-start-9 row-end-13', shape: 'rounded-[12px] rounded-br-[70px]', pos: '32% 30%' },
+  { area: 'col-start-1 col-end-7 row-start-13 row-end-17', shape: 'rounded-[12px] rounded-tr-[80px] rounded-bl-[80px]', pos: 'center 48%' },
 ];
 
 export function PhotoCollage({ photos, startIndex, onSelectPhoto, title, sectionId }: PhotoCollageProps) {

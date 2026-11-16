@@ -26,10 +26,21 @@ function sanitizeGuestName(raw: string | null | undefined): string {
   return cleaned;
 }
 
-// Collage under the Rg Veda: 7 hand-picked photos, mixed from every set
-const COLLAGE_IDS = ['g2-1', 'g1-6', 'g4-3', 'g1-3', 'g2-5', 'g2-2', 'g1-1'];
-// Single featured photo near the end before closing
-const FEATURED_END_IDS = ['g4-1'];
+// Slideshow under the Rg Veda: 9 portrait couple photos centered at 50%, mixed so adjacent slides never look alike
+const SLIDESHOW_IDS = [
+  'g4-1',
+  'g4-4',
+  'g1-5',
+  'g2-5',
+  'g2-6',
+  'g3-3',
+  'g1-6',
+  'g2-4',
+  'g2-3',
+];
+
+// Abstract collage near the end: 7 distinct couple photos with varied compositions and zero adjacent similar poses
+const COLLAGE_IDS = ['g1-3', 'g2-1', 'g3-1', 'g4-3', 'g2-2', 'g1-4', 'g1-1'];
 
 export function InvitationClient({
   data,
@@ -65,7 +76,7 @@ export function InvitationClient({
     const byId = new Map(all.map((p) => [p.id, p]));
     const pick = (ids: string[]) =>
       ids.map((id) => byId.get(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
-    return [pick(COLLAGE_IDS), pick(FEATURED_END_IDS)];
+    return [pick(SLIDESHOW_IDS), pick(COLLAGE_IDS)];
   }, [data.galleries]);
 
   const allPhotos = useMemo(
@@ -111,13 +122,14 @@ export function InvitationClient({
           translation={data.sloka.translation}
         />
 
-        {/* 3. Galeri Kolase (setelah Rg Veda) */}
-        <PhotoCollage
+        {/* 3. Galeri Slideshow (setelah Rg Veda) */}
+        <MasonryGallery
           sectionId="gallery-part-1"
           title="Galeri Wedding"
           photos={gallery1Photos}
           startIndex={0}
           onSelectPhoto={setActivePhotoIndex}
+          showThumbs={true}
         />
 
         {/* 4. Groom & Bride Profiles */}
@@ -137,14 +149,13 @@ export function InvitationClient({
         {/* 6. Buku Tamu (Wishes & RSVP Confirmation) */}
         <GuestbookSection initialComments={initialComments} defaultGuestName={guestName} />
 
-        {/* 7. Galeri Slideshow 2 (sebelum bagian akhir) */}
-        <MasonryGallery
+        {/* 7. Galeri Kolase Abstrak (sebelum bagian akhir) */}
+        <PhotoCollage
           sectionId="gallery-part-2"
           title="Momen Bahagia"
           photos={gallery2Photos}
           startIndex={gallery1Photos.length}
           onSelectPhoto={setActivePhotoIndex}
-          showThumbs={false}
         />
 
         {/* 8. Couple Banner + Closing Footer */}
@@ -163,7 +174,7 @@ export function InvitationClient({
       {/* Floating Background Music Control */}
       <FloatingAudioPlayer ref={audioRef} audioSrc={data.audioSrc} visible={isOpen} />
 
-      {/* Full-Screen 20-Photo Lightbox */}
+      {/* Full-Screen Photo Lightbox */}
       <LightboxModal
         photos={allPhotos}
         activeIndex={activePhotoIndex}
