@@ -90,10 +90,10 @@ export const invitationData: InvitationData = {
     monogramLogo: '/images/monogram-et.svg',
   },
   footer: {
-    vendorLogo: '/images/logo-undangan-bali.png',
-    instagramUrl: 'https://www.instagram.com/undangan_online_bali/',
-    whatsappUrl: 'https://api.whatsapp.com/send?phone=6281995034478',
-    copyrightText: 'Copyright Undangan Online Bali © 2022 All rights reserved',
-    copyrightUrl: 'https://undanganonlinebali.com/',
+    vendorLogo: '/images/monogram-et.svg',
+    instagramUrl: '',
+    whatsappUrl: '',
+    copyrightText: 'Pawiwahan Gus Eka & Dek Tini © 2026',
+    copyrightUrl: '/',
   },
 };
