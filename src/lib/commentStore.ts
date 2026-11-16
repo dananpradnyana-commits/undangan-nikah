@@ -4,20 +4,40 @@ import { GuestComment } from '@/types/invitation';
 
 /**
  * Guestbook storage.
- * - With UPSTASH_REDIS_REST_URL/TOKEN (or Vercel KV's KV_REST_API_URL/TOKEN) set,
+ * - With Upstash Redis / Vercel KV REST env vars set (under any prefix),
  *   messages live in Redis — required on serverless hosts whose disk is read-only.
  * - Otherwise they are kept in data/comments.json (local dev, VPS, any host with a disk).
  */
-const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
+function resolveRedisEnv(): { url?: string; token?: string } {
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL ??
+    process.env.KV_REST_API_URL ??
+    process.env.STORAGE_KV_REST_API_URL ??
+    process.env.STORAGE_REST_API_URL ??
+    Object.entries(process.env).find(
+      ([k, v]) => (k.endsWith('_REST_API_URL') || k.endsWith('_REDIS_REST_URL')) && Boolean(v)
+    )?.[1];
+
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN ??
+    process.env.KV_REST_API_TOKEN ??
+    process.env.STORAGE_KV_REST_API_TOKEN ??
+    process.env.STORAGE_REST_API_TOKEN ??
+    Object.entries(process.env).find(
+      ([k, v]) => (k.endsWith('_REST_API_TOKEN') || k.endsWith('_REDIS_REST_TOKEN')) && Boolean(v)
+    )?.[1];
+
+  return { url, token };
+}
+
 const REDIS_KEY = 'undangan:comments';
 const FILE = path.join(process.cwd(), 'data', 'comments.json');
 const MAX_COMMENTS = 1000;
 
-async function redis<T>(command: (string | number)[]): Promise<T> {
-  const res = await fetch(REDIS_URL as string, {
+async function redis<T>(url: string, token: string, command: (string | number)[]): Promise<T> {
+  const res = await fetch(url, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${REDIS_TOKEN}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(command),
     cache: 'no-store',
   });
@@ -38,9 +58,10 @@ async function readFile(): Promise<GuestComment[]> {
 let writeQueue: Promise<unknown> = Promise.resolve();
 
 export async function listComments(): Promise<GuestComment[]> {
-  if (REDIS_URL && REDIS_TOKEN) {
-    const rows = await redis<string[]>(['LRANGE', REDIS_KEY, 0, MAX_COMMENTS - 1]);
-    return rows.map((row) => JSON.parse(row) as GuestComment);
+  const { url, token } = resolveRedisEnv();
+  if (url && token) {
+    const rows = await redis<string[]>(url, token, ['LRANGE', REDIS_KEY, 0, MAX_COMMENTS - 1]);
+    return (rows ?? []).map((row) => JSON.parse(row) as GuestComment);
   }
   return readFile();
 }
@@ -53,8 +74,9 @@ export async function addComment(author: string, message: string): Promise<Guest
     date: new Date().toISOString(),
   };
 
-  if (REDIS_URL && REDIS_TOKEN) {
-    await redis(['LPUSH', REDIS_KEY, JSON.stringify(comment)]);
+  const { url, token } = resolveRedisEnv();
+  if (url && token) {
+    await redis(url, token, ['LPUSH', REDIS_KEY, JSON.stringify(comment)]);
     return comment;
   }
 
