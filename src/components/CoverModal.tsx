@@ -98,15 +98,18 @@ export function CoverModal({
       </div>
 
       <div className="relative z-[2002] w-full h-full overflow-y-auto">
-        <div className="min-h-full grid grid-rows-[1fr_auto_1fr] justify-items-center text-center px-8 py-14">
+        <div className="min-h-full grid grid-rows-[1fr_auto_1fr] justify-items-center text-center px-6 py-14">
           {/* Guest */}
           <div style={fadeText} className="self-end pb-9 flex flex-col items-center">
             <img src="/images/divider-gold.svg" alt="" className="w-[130px] h-auto mb-4 opacity-90" />
-            <p className="font-montserrat text-[10px] font-medium tracking-[0.38em] uppercase text-white/55">
-              Kepada Yth.
+            <p className="font-montserrat text-[10px] md:text-[11px] font-medium tracking-[0.22em] uppercase text-white/70 leading-relaxed">
+              KEPADA BAPAK/IBU/SAUDARA/SAUDARI
             </p>
-            <p className="namatamu mt-3 font-lora text-[26px] leading-[32px] font-medium text-white/95 break-words max-w-[90vw]">
+            <p className="namatamu my-2.5 font-lora text-[24px] md:text-[26px] leading-[32px] font-medium text-white/95 break-words max-w-[90vw]">
               {guestName}
+            </p>
+            <p className="font-montserrat text-[10px] md:text-[11px] font-medium tracking-[0.22em] uppercase text-white/70">
+              YANG KAMI HORMATI
             </p>
           </div>
 

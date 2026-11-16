@@ -56,7 +56,7 @@ export function EventSection({
     'https://calendar.google.com/calendar/render?action=TEMPLATE' +
     '&text=' + encodeURIComponent('Pawiwahan Gus Eka & Dek Tini') +
     '&dates=20261120T080000Z/20261120T110000Z' +
-    '&location=' + encodeURIComponent('Sidemen, Karangasem, Bali') +
+    '&location=' + encodeURIComponent('Br. Dinas Wangsean, Desa Wismakerta, Sidemen, Karangasem—Bali') +
     '&details=' + encodeURIComponent('Dengan penuh suka cita, kami mengundang Anda untuk hadir di hari bahagia kami.');
 
   return (
@@ -112,10 +112,10 @@ export function EventSection({
 
           {/* Venue */}
           <PinIcon className="w-[26px] h-[26px] mx-auto text-[#EFBC72]" />
-          <p className="mt-2 font-montserrat text-[22px] font-bold text-white leading-snug">
+          <p className="mt-2 font-montserrat text-[19px] md:text-[21px] font-bold text-white leading-snug whitespace-pre-line">
             {venueMain}
           </p>
-          <p className="font-poppins italic text-[14px] text-white/80">{venueSub}</p>
+          <p className="mt-1 font-poppins italic text-[14px] text-white/85">{venueSub}</p>
 
           {/* Interactive draggable Google Map */}
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/25 shadow-[0_14px_34px_-18px_rgba(0,0,0,0.75)]">

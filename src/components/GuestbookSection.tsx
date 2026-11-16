@@ -120,7 +120,10 @@ export function GuestbookSection({
           />
         </Reveal>
         <Reveal variant="fadeInUp">
-          <h2 className="font-dynalight text-[38px] md:text-[45px] leading-[1.2] font-normal text-[#A59071]">
+          <h2
+            className="font-dynalight text-[38px] md:text-[45px] leading-[1.2] font-bold text-[#A59071]"
+            style={{ textShadow: '0 0 0.7px currentColor' }}
+          >
             Buku Tamu
           </h2>
           <p className="mt-1 font-poppins text-[13px] text-[#8b8271]">
@@ -153,7 +156,7 @@ export function GuestbookSection({
                 rows={4}
                 maxLength={500}
                 aria-label="Ucapan"
-                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] text-[#4f483d] placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
+                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] italic text-[#4f483d] placeholder:italic placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
               />
               {message.length > 0 && (
                 <div className="text-right text-[11px] text-[#989692] mt-[2px]">

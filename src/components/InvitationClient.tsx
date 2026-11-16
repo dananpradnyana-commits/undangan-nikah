@@ -49,20 +49,20 @@ export function InvitationClient({
     }
   }, []);
 
-  const allPhotos = useMemo(
-    () => [
-      ...data.galleries.part1,
-      ...data.galleries.part2,
-      ...data.galleries.part3,
-      ...data.galleries.part4,
-    ],
-    [data.galleries]
+  const gallery1Photos = useMemo(
+    () => [...data.galleries.part1, ...data.galleries.part2],
+    [data.galleries.part1, data.galleries.part2]
   );
 
-  const part1Offset = 0;
-  const part2Offset = data.galleries.part1.length;
-  const part3Offset = part2Offset + data.galleries.part2.length;
-  const part4Offset = part3Offset + data.galleries.part3.length;
+  const gallery2Photos = useMemo(
+    () => [...data.galleries.part3, ...data.galleries.part4],
+    [data.galleries.part3, data.galleries.part4]
+  );
+
+  const allPhotos = useMemo(
+    () => [...gallery1Photos, ...gallery2Photos],
+    [gallery1Photos, gallery2Photos]
+  );
 
   const handleOpenInvitation = () => {
     setIsOpen(true);
@@ -102,10 +102,19 @@ export function InvitationClient({
           translation={data.sloka.translation}
         />
 
-        {/* 3. Groom & Bride Profiles */}
+        {/* 3. Galeri Slideshow 1 (setelah Rg Veda) */}
+        <MasonryGallery
+          sectionId="gallery-part-1"
+          title="Galeri Wedding"
+          photos={gallery1Photos}
+          startIndex={0}
+          onSelectPhoto={setActivePhotoIndex}
+        />
+
+        {/* 4. Groom & Bride Profiles */}
         <CoupleSection groom={data.groom} bride={data.bride} />
 
-        {/* 4. Acara Kami (Date, Time, Venue & Google Maps) */}
+        {/* 5. Acara Kami (Date, Time, Venue & Google Maps) */}
         <EventSection
           title={data.event.title}
           dayAndDateLines={data.event.dayAndDateLines}
@@ -116,41 +125,19 @@ export function InvitationClient({
           background={data.event.background}
         />
 
-        {/* 5. Galeri Wedding Part 1 + Galeri Part 2 */}
-        <MasonryGallery
-          sectionId="gallery-part-1"
-          title="Galeri Wedding"
-          photos={data.galleries.part1}
-          startIndex={part1Offset}
-          onSelectPhoto={setActivePhotoIndex}
-        />
-        <MasonryGallery
-          sectionId="gallery-part-2"
-          photos={data.galleries.part2}
-          startIndex={part2Offset}
-          onSelectPhoto={setActivePhotoIndex}
-        />
-
         {/* 6. Buku Tamu (Wishes & RSVP Confirmation) */}
         <GuestbookSection initialComments={initialComments} defaultGuestName={guestName} />
 
-        {/* 7. Galeri Part 3 */}
+        {/* 7. Galeri Slideshow 2 (sebelum bagian akhir) */}
         <MasonryGallery
-          sectionId="gallery-part-3"
-          photos={data.galleries.part3}
-          startIndex={part3Offset}
+          sectionId="gallery-part-2"
+          title="Momen Bahagia"
+          photos={gallery2Photos}
+          startIndex={gallery1Photos.length}
           onSelectPhoto={setActivePhotoIndex}
         />
 
-        {/* 8. Galeri Part 4 */}
-        <MasonryGallery
-          sectionId="gallery-part-4"
-          photos={data.galleries.part4}
-          startIndex={part4Offset}
-          onSelectPhoto={setActivePhotoIndex}
-        />
-
-        {/* 11 & 12. Couple Banner with Wave Divider + Black Vendor Footer */}
+        {/* 8. Couple Banner + Closing Footer */}
         <FooterSection
           coupleTitle={data.coupleTitle}
           bannerBackground={data.closing.bannerBackground}
