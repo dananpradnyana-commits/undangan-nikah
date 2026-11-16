@@ -8,6 +8,7 @@ import { QuoteSection } from './QuoteSection';
 import { CoupleSection } from './CoupleSection';
 import { EventSection } from './EventSection';
 import { MasonryGallery } from './MasonryGallery';
+import { PhotoCollage } from './PhotoCollage';
 import { GuestbookSection } from './GuestbookSection';
 import { FooterSection } from './FooterSection';
 import { AudioPlayerHandle, FloatingAudioPlayer } from './FloatingAudioPlayer';
@@ -24,6 +25,11 @@ function sanitizeGuestName(raw: string | null | undefined): string {
   const cleaned = raw.replace(/\+/g, ' ').replace(/\\(['"\\])/g, '$1').trim();
   return cleaned;
 }
+
+// Collage under the Rg Veda: 7 hand-picked photos, mixed from every set
+const COLLAGE_IDS = ['g2-1', 'g1-6', 'g4-3', 'g1-3', 'g2-5', 'g2-2', 'g1-1'];
+// Single featured photo near the end before closing
+const FEATURED_END_IDS = ['g4-1'];
 
 export function InvitationClient({
   data,
@@ -49,15 +55,18 @@ export function InvitationClient({
     }
   }, []);
 
-  const gallery1Photos = useMemo(
-    () => [...data.galleries.part1, ...data.galleries.part2],
-    [data.galleries.part1, data.galleries.part2]
-  );
-
-  const gallery2Photos = useMemo(
-    () => [...data.galleries.part3, ...data.galleries.part4],
-    [data.galleries.part3, data.galleries.part4]
-  );
+  const [gallery1Photos, gallery2Photos] = useMemo(() => {
+    const all = [
+      ...data.galleries.part1,
+      ...data.galleries.part2,
+      ...data.galleries.part3,
+      ...data.galleries.part4,
+    ];
+    const byId = new Map(all.map((p) => [p.id, p]));
+    const pick = (ids: string[]) =>
+      ids.map((id) => byId.get(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
+    return [pick(COLLAGE_IDS), pick(FEATURED_END_IDS)];
+  }, [data.galleries]);
 
   const allPhotos = useMemo(
     () => [...gallery1Photos, ...gallery2Photos],
@@ -102,8 +111,8 @@ export function InvitationClient({
           translation={data.sloka.translation}
         />
 
-        {/* 3. Galeri Slideshow 1 (setelah Rg Veda) */}
-        <MasonryGallery
+        {/* 3. Galeri Kolase (setelah Rg Veda) */}
+        <PhotoCollage
           sectionId="gallery-part-1"
           title="Galeri Wedding"
           photos={gallery1Photos}
@@ -135,6 +144,7 @@ export function InvitationClient({
           photos={gallery2Photos}
           startIndex={gallery1Photos.length}
           onSelectPhoto={setActivePhotoIndex}
+          showThumbs={false}
         />
 
         {/* 8. Couple Banner + Closing Footer */}

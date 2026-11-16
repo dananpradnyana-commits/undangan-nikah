@@ -27,7 +27,10 @@ export function QuoteSection({ sanskrit, source, translation }: QuoteSectionProp
         <Reveal variant="fadeInUp">
           <div className="bg-[#F3CBA8] mb-[20px]">
             <div className="bg-white py-[35px] px-[20px] md:py-[55px] md:px-[50px] text-center">
-              <p className="font-lora italic font-medium text-[16px] md:text-[17px] leading-[1.7] text-[#81734D] mb-[20px]">
+              <p
+                className="font-lora italic font-medium text-[16px] md:text-[17px] leading-[1.7] text-[#81734D] mb-[20px]"
+                style={{ transform: 'skewX(-9deg)' }}
+              >
                 {sanskrit}
               </p>
 

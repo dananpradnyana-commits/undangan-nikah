@@ -103,7 +103,7 @@ export function CoverModal({
           <div style={fadeText} className="self-end pb-9 flex flex-col items-center">
             <img src="/images/divider-gold.svg" alt="" className="w-[130px] h-auto mb-4 opacity-90" />
             <p className="font-montserrat text-[10px] md:text-[11px] font-medium tracking-[0.22em] uppercase text-white/70 leading-relaxed">
-              KEPADA BAPAK/IBU/SAUDARA/SAUDARI
+              KEPADA BAPAK / IBU / SAUDARA / SAUDARI
             </p>
             <p className="namatamu my-2.5 font-lora text-[24px] md:text-[26px] leading-[32px] font-medium text-white/95 break-words max-w-[90vw]">
               {guestName}

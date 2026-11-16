@@ -156,7 +156,7 @@ export function GuestbookSection({
                 rows={4}
                 maxLength={500}
                 aria-label="Ucapan"
-                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] italic text-[#4f483d] placeholder:italic placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
+                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] text-[#4f483d] placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
               />
               {message.length > 0 && (
                 <div className="text-right text-[11px] text-[#989692] mt-[2px]">

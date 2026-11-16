@@ -11,6 +11,7 @@ interface MasonryGalleryProps {
   onSelectPhoto: (globalIndex: number) => void;
   title?: string;
   sectionId?: string;
+  showThumbs?: boolean;
 }
 
 const SLIDE_MS = 5000;
@@ -22,6 +23,7 @@ export function MasonryGallery({
   onSelectPhoto,
   title,
   sectionId,
+  showThumbs = true,
 }: MasonryGalleryProps) {
   const [current, setCurrent] = useState(0);
   const [held, setHeld] = useState(false); // finger / mouse is on the stage
@@ -165,14 +167,16 @@ export function MasonryGallery({
             />
 
             {/* counter + expand */}
-            <div className="pointer-events-none absolute left-5 bottom-6 z-30 flex items-baseline gap-1.5 text-white">
-              <span className="font-lora text-[26px] leading-none text-[#F3CD8F] tabular-nums">
-                {pad(current + 1)}
-              </span>
-              <span className="font-montserrat text-[11px] tracking-[0.18em] text-white/70 tabular-nums">
-                / {pad(count)}
-              </span>
-            </div>
+            {count > 1 && (
+              <div className="pointer-events-none absolute left-5 bottom-6 z-30 flex items-baseline gap-1.5 text-white">
+                <span className="font-lora text-[26px] leading-none text-[#F3CD8F] tabular-nums">
+                  {pad(current + 1)}
+                </span>
+                <span className="font-montserrat text-[11px] tracking-[0.18em] text-white/70 tabular-nums">
+                  / {pad(count)}
+                </span>
+              </div>
+            )}
             <span
               aria-hidden="true"
               className="pointer-events-none absolute right-5 bottom-6 z-30 w-8 h-8 rounded-full bg-black/35 border border-white/25 text-white/90 flex items-center justify-center"
@@ -197,7 +201,7 @@ export function MasonryGallery({
           </div>
 
           {/* Thumbnails */}
-          {count > 1 && (
+          {showThumbs && count > 1 && (
             <div
               ref={thumbsContainerRef}
               className="mt-4 flex items-center gap-2.5 overflow-x-auto py-1.5 px-1 no-scrollbar"
