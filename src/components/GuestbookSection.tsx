@@ -147,7 +147,7 @@ export function GuestbookSection({
                 rows={4}
                 maxLength={500}
                 aria-label="Ucapan"
-                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] italic text-[#4f483d] placeholder:italic placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
+                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] italic text-[#4f483d] placeholder:italic placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-none"
               />
               {message.length > 0 && (
                 <div className="text-right text-[11px] text-[#989692] mt-[2px]">
@@ -177,16 +177,9 @@ export function GuestbookSection({
           </form>
 
           {/* Count */}
-          <div className="border-t border-[#EFE6D2] px-[18px] md:px-[22px] py-[10px] flex items-center justify-between text-[#7B6945] font-semibold text-[13px]">
-            <div className="flex items-center gap-[6px]">
-              <DoveIcon className="w-[14px] h-[14px]" />
-              <span>{comments.length} Ucapan</span>
-            </div>
-            {comments.length > 5 && (
-              <span className="font-poppins font-normal text-[11px] text-[#989692]">
-                Geser untuk melihat lainnya &darr;
-              </span>
-            )}
+          <div className="border-t border-[#EFE6D2] px-[18px] md:px-[22px] py-[10px] flex items-center gap-[6px] text-[#7B6945] font-semibold text-[13px]">
+            <DoveIcon className="w-[14px] h-[14px]" />
+            <span>{comments.length} Ucapan</span>
           </div>
 
           {/* Scrollable Comments List (shows ~5 messages initially, scrollable for the rest) */}
@@ -198,7 +191,7 @@ export function GuestbookSection({
             <div className="relative border-t border-[#EFE6D2]">
               <ul
                 ref={listRef}
-                className="divide-y divide-[#EFE6D2] max-h-[460px] overflow-y-auto overscroll-contain scroll-smooth"
+                className="divide-y divide-[#EFE6D2] max-h-[460px] overflow-y-auto overscroll-auto scroll-smooth"
               >
                 {comments.map((item) => (
                   <li key={item.id} className="px-[18px] md:px-[22px] py-[14px] flex items-start gap-[12px]">
