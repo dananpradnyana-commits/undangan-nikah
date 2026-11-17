@@ -74,10 +74,10 @@ export const metadata: Metadata = {
   description: 'Undangan Pawiwahan Gus Eka & Dek Tini, Jumat 20 November 2026',
   icons: {
     icon: [
-      { url: '/seo/favicon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/seo/favicon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/seo/et-icon-32.png?v=2', sizes: '32x32', type: 'image/png' },
+      { url: '/seo/et-icon-192.png?v=2', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/seo/favicon-192.png',
+    apple: '/seo/et-icon-192.png?v=2',
   },
   openGraph: {
     title: 'Pawiwahan Gus Eka & Dek Tini',
