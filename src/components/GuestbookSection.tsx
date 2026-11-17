@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GuestComment } from '@/types/invitation';
 import { ClockMiniIcon, DoveIcon } from './icons';
 import { Reveal } from './Reveal';
@@ -9,8 +9,6 @@ interface GuestbookSectionProps {
   initialComments: GuestComment[];
   defaultGuestName?: string;
 }
-
-const ITEMS_PER_PAGE = 5;
 
 function timeAgo(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
@@ -33,10 +31,10 @@ export function GuestbookSection({
     defaultGuestName && defaultGuestName !== 'Tamu Undangan' ? defaultGuestName : ''
   );
   const [message, setMessage] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   // pick up messages other guests sent after this page was rendered
   useEffect(() => {
@@ -58,13 +56,6 @@ export function GuestbookSection({
       setAuthor((prev) => prev || defaultGuestName);
     }
   }, [defaultGuestName]);
-
-  const totalPages = Math.max(1, Math.ceil(comments.length / ITEMS_PER_PAGE));
-
-  const visibleComments = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return comments.slice(start, start + ITEMS_PER_PAGE);
-  }, [comments, currentPage]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,8 +88,8 @@ export function GuestbookSection({
       } else {
         setComments((prev) => [data.comment, ...prev]);
         setMessage('');
-        setCurrentPage(1);
         setSuccessMsg('Terima kasih! Ucapan Anda sudah terkirim.');
+        listRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch {
       setErrorMsg('Terjadi kesalahan jaringan. Silakan coba lagi.');
@@ -156,7 +147,7 @@ export function GuestbookSection({
                 rows={4}
                 maxLength={500}
                 aria-label="Ucapan"
-                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] text-[#4f483d] placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
+                className="w-full bg-[#FFFCF6] border border-[#E6DCC6] rounded-[12px] px-[14px] py-[11px] text-[14px] italic text-[#4f483d] placeholder:italic placeholder:text-[#ACA89F] focus:outline-none focus:border-[#A48C4D] resize-y"
               />
               {message.length > 0 && (
                 <div className="text-right text-[11px] text-[#989692] mt-[2px]">
@@ -186,70 +177,60 @@ export function GuestbookSection({
           </form>
 
           {/* Count */}
-          <div className="border-t border-[#EFE6D2] px-[18px] md:px-[22px] py-[10px] flex items-center gap-[6px] text-[#7B6945] font-semibold text-[13px]">
-            <DoveIcon className="w-[14px] h-[14px]" />
-            <span>{comments.length} Ucapan</span>
+          <div className="border-t border-[#EFE6D2] px-[18px] md:px-[22px] py-[10px] flex items-center justify-between text-[#7B6945] font-semibold text-[13px]">
+            <div className="flex items-center gap-[6px]">
+              <DoveIcon className="w-[14px] h-[14px]" />
+              <span>{comments.length} Ucapan</span>
+            </div>
+            {comments.length > 5 && (
+              <span className="font-poppins font-normal text-[11px] text-[#989692]">
+                Geser untuk melihat lainnya &darr;
+              </span>
+            )}
           </div>
 
-          {/* Comments List */}
+          {/* Scrollable Comments List (shows ~5 messages initially, scrollable for the rest) */}
           {comments.length === 0 ? (
             <p className="border-t border-[#EFE6D2] px-[18px] py-[26px] text-center font-poppins text-[13px] text-[#989692]">
               Belum ada ucapan. Jadilah yang pertama.
             </p>
           ) : (
-            <ul className="border-t border-[#EFE6D2] divide-y divide-[#EFE6D2]">
-              {visibleComments.map((item) => (
-                <li key={item.id} className="px-[18px] md:px-[22px] py-[14px] flex items-start gap-[12px]">
-                  <div
-                    aria-hidden="true"
-                    className="w-[34px] h-[34px] rounded-full bg-[#C4A466] text-white flex items-center justify-center shrink-0 font-lora text-[15px] font-semibold uppercase select-none"
-                  >
-                    {item.author.trim().charAt(0) || '?'}
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <span className="font-bold text-[14px] text-[#7B6945] break-words">{item.author}</span>
-
-                    <div className="flex items-center gap-[4px] text-[11px] text-[#989692] mt-[1px]">
-                      <ClockMiniIcon className="w-[10px] h-[10px] shrink-0" />
-                      <span suppressHydrationWarning>{timeAgo(item.date)}</span>
+            <div className="relative border-t border-[#EFE6D2]">
+              <ul
+                ref={listRef}
+                className="divide-y divide-[#EFE6D2] max-h-[460px] overflow-y-auto overscroll-contain scroll-smooth"
+              >
+                {comments.map((item) => (
+                  <li key={item.id} className="px-[18px] md:px-[22px] py-[14px] flex items-start gap-[12px]">
+                    <div
+                      aria-hidden="true"
+                      className="w-[34px] h-[34px] rounded-full bg-[#C4A466] text-white flex items-center justify-center shrink-0 font-lora text-[15px] font-semibold uppercase select-none"
+                    >
+                      {item.author.trim().charAt(0) || '?'}
                     </div>
 
-                    <p className="mt-[6px] text-[13.5px] leading-[1.6] text-[#625B4F] whitespace-pre-line break-words">
-                      {item.message}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
+                    <div className="min-w-0 flex-1">
+                      <span className="font-bold text-[14px] text-[#7B6945] break-words">{item.author}</span>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <nav
-              aria-label="Navigasi halaman ucapan"
-              className="border-t border-[#EFE6D2] px-[15px] py-[12px] flex items-center justify-center gap-[16px] text-[13px]"
-            >
-              <button
-                type="button"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                className="text-[#7B6945] font-semibold disabled:text-[#C9C3B6] cursor-pointer disabled:cursor-default"
-              >
-                &larr; Sebelumnya
-              </button>
-              <span className="text-[#989692] tabular-nums">
-                {currentPage} / {totalPages}
-              </span>
-              <button
-                type="button"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                className="text-[#7B6945] font-semibold disabled:text-[#C9C3B6] cursor-pointer disabled:cursor-default"
-              >
-                Berikutnya &rarr;
-              </button>
-            </nav>
+                      <div className="flex items-center gap-[4px] text-[11px] text-[#989692] mt-[1px]">
+                        <ClockMiniIcon className="w-[10px] h-[10px] shrink-0" />
+                        <span suppressHydrationWarning>{timeAgo(item.date)}</span>
+                      </div>
+
+                      <p className="mt-[6px] text-[13.5px] leading-[1.6] text-[#625B4F] whitespace-pre-line break-words">
+                        {item.message}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {comments.length > 5 && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-7 bg-gradient-to-t from-white to-transparent"
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
